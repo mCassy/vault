@@ -6,6 +6,7 @@
 local M = {}
 
 M.colors = {
+  none    = "NONE",     -- sentinel for transparent bg (opts.transparent = true)
   bg      = "#0a0a00",  -- near-black, warm tinted background
   fg      = "#c8b400",  -- amber phosphor — primary text
   green   = "#00ff41",  -- Matrix green — keyword accent (≤15% of visible tokens)
