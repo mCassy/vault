@@ -14,7 +14,7 @@
 
 ```lua
 {
-  "mrpbennett/vault",
+  "mCassy/vault",
   priority = 1000,
   lazy = false,
   config = function()
