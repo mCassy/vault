@@ -32,6 +32,7 @@
 require("vault").setup({
   transparent = false,      -- true = use terminal bg instead of #0a0a00
   terminal_colors = true,   -- set vim.g.terminal_color_0..15
+  bold = true,              -- false = disable bold for all groups
   italics = {               -- or set `italics = true/false` for all
     comments = true,
     keywords = false,
@@ -79,3 +80,8 @@ Passing `transparent = true` swaps the editor background (Normal / NormalNC / Si
 
 1. Copy `extras/ghostty/vault` to `~/.config/ghostty/themes/vault`
 2. Add `theme = vault` to `~/.config/ghostty/config`
+
+## Kitty
+
+1. Copy `extras/kitty/vault.conf` to `~/.config/kitty/vault.conf`
+2. Add `include vault.conf` to `~/.config/kitty/kitty.conf`

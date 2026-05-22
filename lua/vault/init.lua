@@ -65,7 +65,7 @@ function M.load()
           or k == "strikethrough" or k == "reverse" or k == "standout"
           or k == "nocombine" or k == "underdouble" or k == "underdotted"
           or k == "underdashed" then
-          if v == true then
+          if v == true and not (k == "bold" and not config.bold) then
             clean[k] = true
           end
         else
