@@ -9,6 +9,8 @@
 ---@class VaultConfig
 ---@field transparent boolean Enable transparent background
 ---@field terminal_colors boolean Set terminal colors (0-15)
+---@field cursorline boolean Enable current line highlight
+---@field cursorcolumn boolean Enable current column highlight
 ---@field bold boolean Enable bold styling
 ---@field italics boolean|VaultItalics Enable italic styling
 ---@field overrides table<string, vim.api.keyset.highlight> Highlight group overrides
@@ -17,6 +19,8 @@
 local defaults = {
   transparent = false,
   terminal_colors = true,
+  cursorline = true,
+  cursorcolumn = true,
   bold = true,
   italics = {
     comments = true,

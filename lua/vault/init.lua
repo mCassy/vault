@@ -19,12 +19,14 @@ function M.load()
     vim.cmd("syntax reset")
   end
 
-  vim.o.termguicolors = true
-  vim.o.background = "dark"
-  vim.g.colors_name = "vault"
-
   local config = require("vault.config")
   local palette = require("vault.palette").colors
+
+  vim.o.termguicolors = true
+  vim.o.background = "dark"
+  vim.o.cursorline = config.cursorline
+  vim.o.cursorcolumn = config.cursorcolumn
+  vim.g.colors_name = "vault"
 
   if config.terminal_colors then
     M.set_terminal_colors(palette)

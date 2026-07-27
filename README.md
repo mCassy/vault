@@ -12,6 +12,21 @@
 
 ## Install
 
+### Neovim 0.12+ built-in package manager
+
+```lua
+vim.pack.add({
+  { src = "https://github.com/mCassy/vault", name = "vault" },
+})
+
+require("vault").setup({
+  transparent = true,
+})
+vim.cmd.colorscheme("vault")
+```
+
+### lazy.nvim
+
 ```lua
 {
   "mCassy/vault",
@@ -32,6 +47,8 @@
 require("vault").setup({
   transparent = false,      -- true = use terminal bg instead of #0a0a00
   terminal_colors = true,   -- set vim.g.terminal_color_0..15
+  cursorline = true,        -- enable current line highlight
+  cursorcolumn = true,      -- enable current column highlight
   bold = true,              -- false = disable bold for all groups
   italics = {               -- or set `italics = true/false` for all
     comments = true,

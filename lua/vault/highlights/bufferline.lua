@@ -19,16 +19,23 @@
 local M = {}
 
 function M.get(c)
+  -- bufferline.nvim composes each tab from several highlight groups. Keep the
+  -- selected-tab underline on every selected component so it spans the whole tab
+  -- instead of appearing only beneath the file icon/indicator.
+  local function selected_tab(hl)
+    return vim.tbl_extend("force", hl, { underline = true, sp = c.green })
+  end
+
   return {
     -- Tabline fill — the background strip behind all tabs (BL-01)
     BufferLineFill                = { bg = c.bg },
 
     -- Tab UI (non-buffer tab list entries) (BL-02)
     BufferLineTab                 = { fg = c.comment, bg = c.ui_bg },
-    BufferLineTabSelected         = { fg = c.fg,      bg = c.bg,    bold = true },
+    BufferLineTabSelected         = selected_tab({ fg = c.fg,      bg = c.bg,    bold = true }),
     BufferLineTabClose            = { fg = c.comment, bg = c.ui_bg },
     BufferLineTabSeparator        = { fg = c.bg,      bg = c.ui_bg },
-    BufferLineTabSeparatorSelected = { fg = c.bg,     bg = c.bg },
+    BufferLineTabSeparatorSelected = selected_tab({ fg = c.bg,     bg = c.bg }),
 
     -- Inactive buffers (BL-03)
     BufferLineBackground          = { fg = c.comment, bg = c.ui_bg },
@@ -50,19 +57,19 @@ function M.get(c)
 
     -- Selected (active, focused) buffer (BL-05)
     -- Bold fg on bg creates clear visual separation from inactive tabs
-    BufferLineBufferSelected      = { fg = c.fg,      bg = c.bg,    bold = true },
-    BufferLineNumbersSelected     = { fg = c.fg,      bg = c.bg,    bold = true },
-    BufferLineCloseButtonSelected = { fg = c.comment, bg = c.bg },
-    BufferLineModifiedSelected    = { fg = c.green,   bg = c.bg },
-    BufferLineDuplicateSelected   = { fg = c.comment, bg = c.bg,    italic = true },
-    BufferLineSeparatorSelected   = { fg = c.bg,      bg = c.bg },
-    BufferLineIndicatorSelected   = { fg = c.fg,      bg = c.bg },
+    BufferLineBufferSelected      = selected_tab({ fg = c.fg,      bg = c.bg,    bold = true }),
+    BufferLineNumbersSelected     = selected_tab({ fg = c.fg,      bg = c.bg,    bold = true }),
+    BufferLineCloseButtonSelected = selected_tab({ fg = c.comment, bg = c.bg }),
+    BufferLineModifiedSelected    = selected_tab({ fg = c.green,   bg = c.bg }),
+    BufferLineDuplicateSelected   = selected_tab({ fg = c.comment, bg = c.bg,    italic = true }),
+    BufferLineSeparatorSelected   = selected_tab({ fg = c.bg,      bg = c.bg }),
+    BufferLineIndicatorSelected   = selected_tab({ fg = c.fg,      bg = c.bg }),
 
     -- Pick (buffer jump shortcut) letters (BL-06)
     -- Bright green for high-signal brief interaction; all three states need coverage
     BufferLinePick               = { fg = c.green,   bg = c.ui_bg, bold = true },
     BufferLinePickVisible        = { fg = c.green,   bg = c.ui_bg, bold = true },
-    BufferLinePickSelected       = { fg = c.green,   bg = c.bg,    bold = true },
+    BufferLinePickSelected       = selected_tab({ fg = c.green,   bg = c.bg,    bold = true }),
 
     -- Diagnostic indicators — inactive (BL-07)
     BufferLineError              = { fg = c.error,   bg = c.ui_bg },
@@ -85,20 +92,22 @@ function M.get(c)
     BufferLineHintDiagnosticVisible    = { fg = c.hint,    bg = c.ui_bg },
 
     -- Diagnostic indicators — selected (BL-07)
-    BufferLineErrorSelected             = { fg = c.error,   bg = c.bg },
-    BufferLineErrorDiagnosticSelected   = { fg = c.error,   bg = c.bg },
-    BufferLineWarningSelected           = { fg = c.warning, bg = c.bg },
-    BufferLineWarningDiagnosticSelected = { fg = c.warning, bg = c.bg },
-    BufferLineInfoSelected              = { fg = c.info,    bg = c.bg },
-    BufferLineInfoDiagnosticSelected    = { fg = c.info,    bg = c.bg },
-    BufferLineHintSelected              = { fg = c.hint,    bg = c.bg },
-    BufferLineHintDiagnosticSelected    = { fg = c.hint,    bg = c.bg },
+    BufferLineDiagnosticSelected        = selected_tab({ fg = c.fg,      bg = c.bg }),
+    BufferLineErrorSelected             = selected_tab({ fg = c.error,   bg = c.bg }),
+    BufferLineErrorDiagnosticSelected   = selected_tab({ fg = c.error,   bg = c.bg }),
+    BufferLineWarningSelected           = selected_tab({ fg = c.warning, bg = c.bg }),
+    BufferLineWarningDiagnosticSelected = selected_tab({ fg = c.warning, bg = c.bg }),
+    BufferLineInfoSelected              = selected_tab({ fg = c.info,    bg = c.bg }),
+    BufferLineInfoDiagnosticSelected    = selected_tab({ fg = c.info,    bg = c.bg }),
+    BufferLineHintSelected              = selected_tab({ fg = c.hint,    bg = c.bg }),
+    BufferLineHintDiagnosticSelected    = selected_tab({ fg = c.hint,    bg = c.bg }),
 
     -- Offset separator (for file-tree panels like nvim-tree) (BL-08)
     BufferLineOffsetSeparator     = { fg = c.comment, bg = c.ui_bg },
 
     -- Trunc marker (shown when tabs overflow the width) (BL-09)
     BufferLineTruncMarker         = { fg = c.comment, bg = c.ui_bg },
+    BufferLineDevIconSelected     = selected_tab({ bg = c.bg }),
   }
 end
 
