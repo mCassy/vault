@@ -77,41 +77,6 @@ function M.load()
     end
     vim.api.nvim_set_hl(0, name, clean)
   end
-
-  M.fix_bufferline_devicons(palette)
-end
-
----Fix dynamically generated bufferline.nvim devicon backgrounds.
----bufferline derives BufferLineDevIcon* groups from nvim-web-devicons and caches
----them, so stale groups can keep a black icon cell after a colorscheme reload.
----@param c table palette colors
-function M.fix_bufferline_devicons(c)
-  local function patch()
-    pcall(function()
-      local bufferline_hl = require("bufferline.highlights")
-      if bufferline_hl.reset_icon_hl_cache then
-        bufferline_hl.reset_icon_hl_cache()
-      end
-    end)
-
-    for name, hl in pairs(vim.api.nvim_get_hl(0, {})) do
-      if name:match("^BufferLineDevIcon") and not hl.link then
-        if name:match("Selected$") then
-          hl.bg = c.bg
-          hl.underline = true
-          hl.sp = c.green
-        else
-          hl.bg = c.ui_bg
-          hl.underline = nil
-          hl.sp = nil
-        end
-        vim.api.nvim_set_hl(0, name, hl)
-      end
-    end
-  end
-
-  patch()
-  vim.schedule(patch)
 end
 
 ---Set terminal colors (0-15) — stays in amber/green/black space
